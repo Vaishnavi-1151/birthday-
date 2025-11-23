@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Happy Birthday Farruuu ❤️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #050716;
+      --accent: #ff4b91;
+      --accent-soft: #ff9ecf;
+      --text: #fdfbff;
+      --muted: #d0cde6;
+      --card: rgba(8, 6, 32, 0.9);
+      --gold: #ffd66b;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top, #221b4b 0%, #050716 40%, #01010a 100%);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    .app {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .scene.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+
+    .scene-inner {
+      max-width: 800px;
+      padding: 24px 20px;
+      border-radius: 24px;
+      background: radial-gradient(circle at top left, rgba(255, 158, 207, 0.11), transparent 65%);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    }
+
+    .scene-title {
+      font-family: "Dancing Script", cursive;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      margin-bottom: 8px;
+      letter-spacing: 0.03em;
+    }
+
+    .scene-tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent-soft);
+      margin-bottom: 8px;
+    }
+
+    .scene-text {
+      font-size: 0.98rem;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-top: 8px;
+    }
+
+    .highlight {
+      color: var(--accent-soft);
+      font-weight: 600;
+    }
+
+    .emoji-row {
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+    }
+
+    /* Intro heart scene */
+    .intro-bg {
+      background: radial-gradient(circle at top, #ff9ecf 0%, #3a225d 42%, #050716 85%);
+    }
+
+    .heart-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .tap-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .heart-btn {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .heart {
+      position: relative;
+      width: 140px;
+      height: 125px;
+      transform: scale(1);
+      animation: heartbeat 1.4s infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 70px;
+      height: 110px;
+      background: linear-gradient(135deg, #ff4b91, #ff9ecf);
+      border-radius: 70px 70px 0 0;
+      top: 0;
+    }
+
+    .heart::before {
+      left: 35px;
+      transform-origin: right bottom;
+      transform: rotate(-45deg);
+    }
+    .heart::after {
+      right: 35px;
+      transform-origin: left bottom;
+      transform: rotate(45deg);
+    }
+
+    .heart-glow {
+      position: absolute;
+      inset: 16px;
+      border-radius: 50%;
+      box-shadow: 0 0 45px rgba(255, 75, 145, 0.8);
+      opacity: 0.9;
+      filter: blur(5px);
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      20% { transform: scale(1.1); }
+      40% { transform: scale(0.97); }
+      60% { transform: scale(1.08); }
+    }
+
+    .title-main {
+      font-family: "Dancing Script", cursive;
+      font-size: clamp(2.2rem, 5.4vw, 3.1rem);
+      background: linear-gradient(135deg, #fff, var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-top: 6px;
+    }
+
+    /* Characters (bunny couple) */
+    .scene-visual {
+      margin: 12px 0 6px;
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      font-size: 2.4rem;
+    }
+
+    .char {
+      padding: 12px;
+      border-radius: 50%;
+      background: rgba(5, 7, 30, 0.8);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .char.me {
+      animation-delay: 0.3s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    .scene-note {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      opacity: 0.9;
+    }
+
+    /* Navigation */
+    .nav {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 9px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: radial-gradient(circle at top left, rgba(255,75,145,0.2), rgba(7, 8, 30, 0.9));
+      color: var(--text);
+      font-size: 0.86rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(10px);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 26px rgba(0,0,0,0.6);
+      background: radial-gradient(circle at top left, rgba(255,75,145,0.35), rgba(7, 8, 30, 1));
+    }
+
+    .btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .nav-info {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    /* Floating hearts background */
+    .floating-heart {
+      position: absolute;
+      font-size: 1.6rem;
+      opacity: 0.22;
+      pointer-events: none;
+      animation: floatUp 12s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh); opacity: 0; }
+      10% { opacity: 0.35; }
+      90% { opacity: 0.35; }
+      100% { transform: translateY(-10vh); opacity: 0; }
+    }
+
+    /* Special layouts */
+    .two-column {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 10px;
+      font-size: 0.8rem;
+    }
+
+    .chip {
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(8, 9, 35, 0.9);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .starry {
+      background: radial-gradient(circle at top, rgba(130,111,255,0.5), rgba(5,7,22,0.98));
+      position: relative;
+      overflow: hidden;
+    }
+
+    .starry::before,
+    .starry::after {
+      content: "✦";
+      position: absolute;
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      animation: twinkle 3s ease-in-out infinite alternate;
+    }
+
+    .starry::before { top: 10%; left: 10%; }
+    .starry::after { bottom: 12%; right: 12%; animation-delay: 1.3s; }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(0.8) translateY(0); }
+      100% { opacity: 1; transform: scale(1.2) translateY(-3px); }
+    }
+
+    .bathroom-card {
+      margin-top: 10px;
+      padding: 20px 16px;
+      border-radius: 22px;
+      background: radial-gradient(circle at bottom, rgba(138,240,255,0.18), rgba(6,8,30,0.96));
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .bathroom-emoji {
+      font-size: 2.4rem;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .bathroom-main {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+    }
+
+    .big-bday-text {
+      margin-top: 10px;
+      font-family: "Dancing Script", cursive;
+      font-size: 1.6rem;
+      color: var(--accent-soft);
+    }
+
+    .butterflies {
+      font-size: 1.8rem;
+      margin-top: 8px;
+    }
+
+    @media (min-width: 720px) {
+      .scene-inner {
+        padding: 30px 26px;
+      }
+      .two-column {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .two-column-text {
+        flex: 1.5;
+        text-align: left;
+      }
+      .two-column-visual {
+        flex: 1;
+        text-align: center;
+      }
+      .scene-text {
+        font-size: 1rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- Floating hearts -->
+    <span class="floating-heart" style="left:8%; animation-delay:0s;">💖</span>
+    <span class="floating-heart" style="left:24%; animation-delay:2s;">💘</span>
+    <span class="floating-heart" style="left:42%; animation-delay:4s;">💞</span>
+    <span class="floating-heart" style="left:63%; animation-delay:1s;">💕</span>
+    <span class="floating-heart" style="left:82%; animation-delay:3s;">💝</span>
+
+    <!-- SCENE 0: TAP THE HEART -->
+    <section class="scene intro-bg active">
+      <div class="scene-inner">
+        <div class="heart-wrapper">
+          <button class="heart-btn" id="startHeart" aria-label="Tap the heart">
+            <div class="heart">
+              <div class="heart-glow"></div>
+            </div>
+          </button>
+          <div class="tap-text">
+            Farruuu, tap the heart to enter my world 💖
+          </div>
+        </div>
+        <p class="scene-note">
+          (No buttons, no drama. Just you, me & one little heart.)
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 1: HAPPY BIRTHDAY MAIN -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="emoji-row">🎂💖🎉</div>
+        <h1 class="title-main">Happy Birthday, Farruuu ❤️</h1>
+        <div class="scene-visual">
+          <div class="char">🐰</div>
+          <div class="char me">🐰💗</div>
+        </div>
+        <p class="scene-text">
+          Today is your day, my favourite human.  
+          The boy who turned my normal life into a full filmy love story. 💞
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 2: HAPPY 18 GUNDUUU -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Slide • Special Message</div>
+        <h2 class="scene-title">Happy 18, Gunduuuu 😂</h2>
+        <div class="scene-visual">
+          <div class="char">🐻🍰</div>
+          <div class="char me">🐰🤣</div>
+        </div>
+        <p class="scene-text">
+          My cute <span class="highlight">Gunduuuu</span>, welcome to your 18th level of life –  
+          more chaos, more memories, more hugs, more kisses,  
+          and obviously, more of me irritating you every single day. 💗
+        </p>
+        <div class="butterflies">
+          💕🎂🤍😂🦋
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 3: WELCOME TO OUR WORLD -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Slide 2 • Our Little Universe</div>
+        <h2 class="scene-title">Welcome to Our World 🌎</h2>
+        <div class="scene-visual">
+          <div class="char">🐰</div>
+          <div class="char me">🐰💗</div>
+        </div>
+        <p class="scene-text">
+          This is <span class="highlight">our world</span> –  
+          that noisy <span class="highlight">college bus-stop corner</span> where we first met through mutual friends,  
+          bikes, ice-creams, forehead kisses, midnight rides,  
+          stupid fights, long calls, tears, laughter and way too much love.  
+          Every slide here is one tiny piece of “us”. 💖
+        </p>
+        <div class="butterflies">
+          💕 🦋 💕 🦋 💕
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 4: BUS-STOP MEETING -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 1 • College Diaries</div>
+        <h2 class="scene-title">That Bus-Stop Corner 🚍</h2>
+        <div class="scene-visual">
+          <div class="char">🚌</div>
+          <div class="char me">🐰💗</div>
+        </div>
+        <p class="scene-text">
+          Our story started near the <span class="highlight">college bus-stop area</span> –  
+          that one crowded spot where all buses came and went,  
+          and where our <span class="highlight">mutual friends</span> pulled us into the same group.  
+          We weren’t travelling together, but we kept ending up  
+          in the same place, in the same circle…  
+          until that “stranger” started feeling very, very special. 💗
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 5: FIRST BIKE -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 2 • Hero’s Plea</div>
+        <h2 class="scene-title">“Please, Just Get on the Bike!” 🏍️</h2>
+        <div class="two-column">
+          <div class="two-column-visual">
+            <div class="emoji-row">🧑‍🦱🙏🏍️👧</div>
+          </div>
+          <div class="two-column-text">
+            <p class="scene-text">
+              That first time you <span class="highlight">begged me</span> to sit on your bike…  
+              I was shy, nervous, overthinking everything.  
+              But I still got on – and from that day,  
+              every road with you started feeling like the beginning of a <span class="highlight">love story</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 6: ICE CREAM DATES -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 3 • Simple Dates</div>
+        <h2 class="scene-title">Ice-Cream & Us 🍦</h2>
+        <div class="scene-visual">
+          <div class="char">🍦</div>
+          <div class="char me">🍦</div>
+        </div>
+        <p class="scene-text">
+          Our <span class="highlight">ice-cream dates</span> were so simple – no fancy restaurants, no drama,  
+          just us, two cones and silly talks.  
+          And still, those moments felt warmer than any big, expensive date.  
+          It wasn’t the ice-cream that was sweet… it was <span class="highlight">you</span>.
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 7: 4480 SCOOTY -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 4 • 4480</div>
+        <h2 class="scene-title">Scooty No. 4480 🛵</h2>
+        <div class="scene-visual">
+          <div class="char">🛵</div>
+          <div class="char me">🐰💗</div>
+        </div>
+        <p class="scene-text">
+          That <span class="highlight">4480 scooty</span> is not just a number plate.  
+          It’s our little symbol – of trust, fun and freedom.  
+          When you made me ride it, it felt like you were saying,  
+          “Here… my world is safe with you. Take the handle.” 💞
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 8: CRYING & LOVE -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 5 • Safe Place</div>
+        <h2 class="scene-title">Loving Me When I Cry 🥺</h2>
+        <div class="scene-visual">
+          <div class="char me">😭</div>
+          <div class="char">🤍</div>
+        </div>
+        <p class="scene-text">
+          You didn’t just love my happy version.  
+          Even when I was <span class="highlight">crying</span>, overthinking, breaking down…  
+          you made me feel <span class="highlight">totally loved</span>.  
+          You never judged my emotions – you held them with me.
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 9: FIRST HUG -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 6 • First Touch</div>
+        <h2 class="scene-title">Our First Hug 🫂</h2>
+        <div class="scene-visual">
+          <div class="char">🐰</div>
+          <div class="char me">🐰💗</div>
+        </div>
+        <p class="scene-text">
+          Our <span class="highlight">first hug</span> felt like time slowed down.  
+          It was soft, a little shy, but so full of warmth.  
+          In that moment, it felt like the universe whispered,  
+          “Finally, they’re exactly where they’re meant to be.”
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 10: FIRST KISS OUTSKIRTS -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 7 • Outskirts Romance</div>
+        <h2 class="scene-title">Our First Kiss 💋</h2>
+        <div class="scene-visual">
+          <div class="char">🌾</div>
+          <div class="char me">💏</div>
+        </div>
+        <p class="scene-text">
+          Somewhere in the <span class="highlight">outskirts of a village</span>,  
+          with the world quiet and nobody around,  
+          we had our <span class="highlight">first kiss</span>.  
+          It wasn’t dramatic – it was real, soft and full of love.  
+          Like a secret the world doesn’t know, but our hearts can’t forget.
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 11: FOREHEAD KISSES -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 8 • Pure Love</div>
+        <h2 class="scene-title">Those Forehead Kisses 💗</h2>
+        <div class="scene-visual">
+          <div class="char">👨‍🦱💋</div>
+          <div class="char me">👧</div>
+        </div>
+        <p class="scene-text">
+          Your <span class="highlight">forehead kisses</span> are my favourite.  
+          They’re not just kisses – they’re silent promises that say,  
+          “I got you. You’re safe. You’re mine. I love you more than you know.”
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 12: MIDNIGHT NIGHTOUTS -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 9 • Midnight Feels</div>
+        <h2 class="scene-title">Our Nightouts 🌙</h2>
+        <div class="scene-visual">
+          <div class="char">🌙</div>
+          <div class="char me">🏍️</div>
+        </div>
+        <p class="scene-text">
+          Our <span class="highlight">midnight nightouts</span> were pure movie scenes –  
+          empty roads, soft air, no destination, just us wandering and talking.  
+          The world was sleeping, but our hearts were wide awake,  
+          happy to just be together.
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 13: IRRITATING CALLS -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 10 • Daily Drama</div>
+        <h2 class="scene-title">Me Calling, You Not Picking Up 📞😈</h2>
+        <div class="scene-visual">
+          <div class="char me">📲</div>
+          <div class="char">🙈</div>
+        </div>
+        <p class="scene-text">
+          Me, <span class="highlight">calling you every day</span>,  
+          spamming you, getting annoyed when you didn’t pick up…  
+          but secretly loving the fact that I always had one person I wanted to call first –  
+          and that was always <span class="highlight">you</span>.
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 14: SWING -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 11 • Soft Moments</div>
+        <h2 class="scene-title">Us on the Swing 🎡</h2>
+        <div class="scene-visual">
+          <div class="char">🧑‍🦱👧</div>
+          <div class="char me">🪑</div>
+        </div>
+        <p class="scene-text">
+          Both of us sitting on a <span class="highlight">swing</span>,  
+          not rushing, not overthinking, not needing anything big.  
+          Just enjoying the moment, the air, the comfort of you being next to me.  
+          Sometimes, happiness really is that simple.
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 15: STARGAZING -->
+    <section class="scene">
+      <div class="scene-inner starry">
+        <div class="scene-tag">Scene 12 • Under the Sky</div>
+        <h2 class="scene-title">Stargazing With You ✨</h2>
+        <div class="scene-visual">
+          <div class="char">🌌</div>
+        </div>
+        <p class="scene-text">
+          That night under the <span class="highlight">stars</span>…  
+          just you, me and the sky listening to our endless conversations.  
+          We spoke about everything – life, future, random nonsense, real feelings.  
+          In that moment, everything between us felt <span class="highlight">perfect</span>,  
+          like the universe had written “you + me” in the constellations.
+        </p>
+      </div>
+    </section>
+
+    <!-- SCENE 16: HOW MUCH I LOVE YOU -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Scene 13 • Confession</div>
+        <h2 class="scene-title">How Much I Love You ❤️</h2>
+        <div class="scene-visual">
+          <div class="char">💖</div>
+          <div class="char me">💞</div>
+        </div>
+        <p class="scene-text">
+          Farhaan, my <span class="highlight">Farruuu / Gunduuuu</span>,  
+          I love you more than I can ever perfectly write or say.  
+          I love you in every version of you –  
+          playful, serious, irritated, sleepy, caring, dramatic, quiet.  
+          You are my comfort person, my home, my favourite decision.
+        </p>
+        <div class="chips">
+          <span class="chip">My safe place</span>
+          <span class="chip">My drama partner</span>
+          <span class="chip">My star boy</span>
+          <span class="chip">My forever one</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENE 17: BATHROOM POST-CREDIT -->
+    <section class="scene">
+      <div class="scene-inner">
+        <div class="scene-tag">Post-Credit Scene 💩🎂</div>
+        <h2 class="scene-title">Bathroom Birthday King 😂</h2>
+        <div class="bathroom-card">
+          <div class="bathroom-emoji">
+            <span>🚽</span>
+            <span>🤴🎂</span>
+          </div>
+          <p class="bathroom-main">
+            Imagine this: <br/>
+            You, sitting in the bathroom, peacefully <span class="highlight">pooping</span>,  
+            holding a birthday <span class="highlight">cake</span> in your hand,  
+            completely confused but still my king. 👑
+          </p>
+          <p class="scene-text" style="margin-top:4px;">
+            And on the side wall, in big bold letters, it’s written:
+          </p>
+          <div class="big-bday-text">
+            “Happy Birthday Farruuuu!” 🎉😂
+          </div>
+        </div>
+        <p class="scene-note">
+          Yes, even your bathroom time is part of our love story now.  
+          There is officially <span class="highlight">no escape</span>. 🤭
+        </p>
+      </div>
+    </section>
+
+    <!-- NAVIGATION -->
+    <div class="nav">
+      <div class="nav-buttons">
+        <button id="prevBtn" class="btn" disabled>⬅ Previous</button>
+        <button id="nextBtn" class="btn" disabled>Next ➡</button>
+      </div>
+      <div class="nav-info" id="sceneInfo">
+        Tap the heart to start 💖
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const scenes = Array.from(document.querySelectorAll('.scene'));
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const sceneInfo = document.getElementById('sceneInfo');
+    const startHeart = document.getElementById('startHeart');
+
+    let current = 0;
+    let heartOpened = false;
+
+    function updateScene() {
+      scenes.forEach((scene, index) => {
+        scene.classList.toggle('active', index === current);
+      });
+
+      const total = scenes.length;
+
+      if (!heartOpened && current === 0) {
+        sceneInfo.textContent = 'Tap the heart to start 💖';
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+
+      // scenes 1 to (total-1) are story scenes
+      sceneInfo.textContent = `Scene ${current} / ${total - 1}`;
+
+      prevBtn.disabled = current <= 1;
+
+      if (current === total - 1) {
+        nextBtn.textContent = 'Replay 🔁';
+      } else {
+        nextBtn.textContent = 'Next ➡';
+      }
+
+      nextBtn.disabled = false;
+    }
+
+    startHeart.addEventListener('click', () => {
+      if (heartOpened) return;
+      heartOpened = true;
+
+      setTimeout(() => {
+        current = 1;
+        updateScene();
+      }, 600);
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (!heartOpened) return;
+      if (current === scenes.length - 1) {
+        current = 1; // replay from main birthday slide
+      } else {
+        current++;
+      }
+      updateScene();
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if (!heartOpened) return;
+      if (current > 1) {
+        current--;
+        updateScene();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        nextBtn.click();
+      } else if (e.key === 'ArrowLeft') {
+        prevBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
